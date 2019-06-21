@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- 通过viewModel这个自定义的名字，将布局和MainViewModel关联起来 -->
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="viewModel"
+            type="com.michael.mvvmdemo.viewmodel.MainViewModel"/>
+    </data>
+
+    <!-- 原视图的根布局 -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        tools:context=".view.MainActivity">
+
+        <TextView
+            android:id="@+id/tvTemperatureAndWindLevel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="28sp"
+            android:text="@{viewModel.temperatureAndWind}"/>
+
+        <SeekBar
+            android:id="@+id/sbTemperature"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTemperatureAndWindLevel"
+            android:layout_marginTop="20dp"
+            android:max="30"
+            android:min="20"
+            android:onProgressChanged="@{viewModel.onTemperatureChanged}"/>
+
+        <Button
+            android:id="@+id/btnChangeWindLevel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sbTemperature"
+            android:layout_marginTop="20dp"
+            android:text="设置风力"
+            android:onClick="@{() -> viewModel.onWindLevelChanged()}"/>
+
+    </RelativeLayout>
+</layout>
